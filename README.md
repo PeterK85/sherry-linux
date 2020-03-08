@@ -1,13 +1,5 @@
 # sherry-linux
-A customized linux distro. (Or just the config files for packages.)
-Installing Arch -> https://wiki.learnlinux.tv/index.php/How_to_Install_Arch_Linux
+A customized linux distro. (Or just the config files for packages/instructions for installing things.)
 
-## Editors
-+ Vim
-+ Emacs(sherry-emacs\[work-in-progress\])
-
-## Shell
-+ termite
-
-## File Manager
-+ ranger
+## Arch Install
+My [personal writeup](https://github.com/PeterK85/sherry-linux/tree/master/arch_install) on installing arch for my personal machines. 
