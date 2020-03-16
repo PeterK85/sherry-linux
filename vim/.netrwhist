@@ -1,0 +1,11 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =9
+let g:netrw_dirhist_9='/home/peter/school/capstone/braingui/src/imgui'
+let g:netrw_dirhist_8='/home/peter/school/capstone/braingui/src'
+let g:netrw_dirhist_7='/home/peter/.urxvt'
+let g:netrw_dirhist_6='/var/lib/pacman/local'
+let g:netrw_dirhist_5='/var/lib/pacman'
+let g:netrw_dirhist_4='/home/peter/.config/ranger'
+let g:netrw_dirhist_3='/home/peter/.config'
+let g:netrw_dirhist_2='/home/peter/.config/ranger'
+let g:netrw_dirhist_1='/home/peter/.config'
