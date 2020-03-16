@@ -32,7 +32,15 @@ t
 ```
 
 ### Create Root Partition
-Type `n` for numbering partition. Then enter three more times.
+I am ok with just having a root partition. That is how my Manjaro i3 machine was set up and I really liked how that machine was set up. Type `n` for numbering partition. Then enter three more times.
+```
+n
+<enter>
+<enter>
+<enter>
+```
+
+### Write The Partitions
 
 
 ## References
