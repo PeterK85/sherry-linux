@@ -41,6 +41,14 @@ n
 ```
 
 ### Write The Partitions
+To write the partitions just type `w`. If there you want to examine the partitions before writing them use `p` to see them.
+
+
+### Format the EFI Partition 
+Need to format the EFI partition to fat32. In the angle brackets where "PARTITION 1" is, replace with the name of the EFI parition name on your system, e.g, /dev/sda1.
+```
+mkfs.fat -F32 /dev/<PARTITION 1>
+```
 
 
 ## References
