@@ -43,11 +43,23 @@ n
 ### Write The Partitions
 To write the partitions just type `w`. If there you want to examine the partitions before writing them use `p` to see them.
 
-
+##Format the Partitions
 ### Format the EFI Partition 
 Need to format the EFI partition to fat32. In the angle brackets where "PARTITION 1" is, replace with the name of the EFI parition name on your system, e.g, /dev/sda1.
 ```
 mkfs.fat -F32 /dev/<PARTITION 1>
+```
+
+### Format the Root Partition
+Using the naming scheme used for the EFI partition but changing the number 1 at the end to the number 2 for the root partition.  
+```
+mkfs.ext4 /dev/<PARTITION 2>
+```
+
+## Mount the Root Partition
+Now we are going to install Arch to the root partition so mount it first.
+```
+mount /dev/<PARTITION 2> /mnt
 ```
 
 
