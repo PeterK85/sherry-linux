@@ -43,6 +43,7 @@ n
 ### Write The Partitions
 To write the partitions just type `w`. If there you want to examine the partitions before writing them use `p` to see them.
 
+
 ##Format the Partitions
 ### Format the EFI Partition 
 Need to format the EFI partition to fat32. In the angle brackets where "PARTITION 1" is, replace with the name of the EFI parition name on your system, e.g, /dev/sda1.
@@ -62,6 +63,37 @@ Now we are going to install Arch to the root partition so mount it first.
 mount /dev/<PARTITION 2> /mnt
 ```
 
+## etc Directory and fstab file
+TBH as of March 18th, literally no idea what this does.
+```
+mkdir /mnt/etc
+genfstab -U -p /mnt >> /mnt/etc/fstab
+cat /mnt/etc/fstab
+```
+
+## Install God's OS
+Time to install the Messiah of OS's.
+```
+pacstrap -i /mnt base
+arch-chroot /mnt
+pacman -S linux linux-headers
+```
+
+## Extra Packages Before Reboot
+```
+pacman -S vim base-devel networkmanager wpa_supplicant wireless_tools netctl dialog
+```
+Enable the networkmanager
+```
+systemctl enable NetworkManager
+```
+
+Initial Ramdisk
+```
+mkinitcpio -p linux
+```
+
+## Some 
 
 ## References
 
