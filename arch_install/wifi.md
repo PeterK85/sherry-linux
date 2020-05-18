@@ -6,4 +6,4 @@ Don't use wifi-menu, too many issues. Instead use `systemctl --type=service` to 
 
 ## Remove netctl 
 
-TODO
+TODO - Section
