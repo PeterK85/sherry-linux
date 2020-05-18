@@ -81,19 +81,19 @@ pacman -S linux linux-headers
 
 ## Extra Packages Before Reboot
 ```
-pacman -S vim base-devel networkmanager wpa_supplicant wireless_tools netctl dialog
+pacman -S vim base-devel networkmanager wpa_supplicant wireless_tools
 ```
 Enable the networkmanager
 ```
 systemctl enable NetworkManager
 ```
 
-Initial Ramdisk
+Initial Ramdisk (If using LTS, also do this for LTS.)
 ```
 mkinitcpio -p linux
 ```
 
-## Some 
+## TODO
 
 ## References
 
