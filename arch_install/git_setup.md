@@ -35,3 +35,10 @@ Inside of it put the following:
 ```
 https://user:pass@github.com
 ```
+
+(I don't know if the following has to be done in a directory that is a git repo, but I happened to do it in one the first time I did this.)
+
+Then enter in this command:
+```
+git config credential.helper store
+```
