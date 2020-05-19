@@ -21,9 +21,9 @@ touch ~/.config/git/config
 
 Inside of it put the following:
 ```
-[Users]
-	name=First Last
+[user]
 	email=myemail@email.com
+	name=First Last
 ```
 
 Then create another file called credentials.
