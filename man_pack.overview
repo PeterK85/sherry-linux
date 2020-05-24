@@ -1,6 +1,9 @@
-a52dec 0.7.4-10
-aalib 1.4rc5-13
-accountsservice 0.6.55-2
+Overview Of Each Package
+
+
+a52dec 0.7.4-10 (audio, might be useful)
+aalib 1.4rc5-13 (ascii art, not needed)
+accountsservice 0.6.55-2 (used for user accounts, needed)
 acl 2.2.53-3
 acpi 1.7-3
 acpid 2.0.32-1
