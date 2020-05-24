@@ -78,6 +78,8 @@ pacstrap -i /mnt base
 arch-chroot /mnt
 pacman -S linux linux-headers
 ```
+The arch-chroot is the working install on the machine from here on out make sure to be in the chroot user(?-wording) so you install the packages properly.
+
 
 ## Extra Packages Before Reboot
 ```
@@ -93,7 +95,75 @@ Initial Ramdisk (If using LTS, also do this for LTS.)
 mkinitcpio -p linux
 ```
 
-## TODO
+## Extra Setup Before Reboot
+Uncomment line from /etc/local.gen for your location
+```
+vim /etc/local.gen (uncomment en_US.UTF-8)
+```
+
+Generate the locale: `locale-gen`.
+
+Set root password: `passwd`.
+
+Create your user.
+```
+useradd -m -g users -G wheel <username>
+```
+
+Set your password: `passwd <username>`.
+
+Make sure sudo is installed, it should be already installed if you installed base-devel, but nonetheless, install it. `pacman -S sudo`
+
+Allow users in the wheel group to be able to use sudo, (make them admins essentially)
+```
+EDITOR=vim visudo
+```
+In the file uncomment `%wheel ALL=(ALL) ALL`
+
+Install the GRUB packages
+```
+pacman -S grub efibootmgr dosfstools os-prober mtools
+```
+NOTE: packages still under review.(May 2020)
+
+Create directory for EFI boot and mount EFI partition.
+```
+mkdir -p /boot/EFI
+mount /dev/<PARTITION 1> /boot/EFI
+```
+
+Install GRUB, create locale directory for GRUB, copy file into locale directory, generate the config file
+```
+grub-install --target=x86_64-efi --bootloader-id=grub_uefi --recheck
+mkdir /boot/grub/locale
+cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
+grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+Swap File
+```
+fallocate -l 2G /swapfile
+chmod 600 /swapfile
+mkswap /swapfile
+cp /etc/fstab /etc/fstab.bak
+echo '/swapfile none swap sw 0 0' | tee -a /etc/fstab
+cat /etc/fstab
+```
+
+## Final Optional CPU/Graphics packages
+CPU codes for intel `pacman -S intel-ucode`, if you are a loser and use amd just replace intel with amd. Install Xorg if plan on having an GUI elements `pacman -S xorg-server`. If on a laptop that doesn't have a fancy GPU use `pacman -S mesa`. If on a desktop or laptop that has Nvidia GPU install: `pacman -S nvidia nvidia-utils`
+
+## Pray to the Linux Gods and Reboot (AKA Become a Borne Again Computer User)
+Exit the chroot environment with ... you guessed it `exit`, then unmount everything with `umount -a`, there should be some stuff yelling about it being busy, ignore that and finally...
+
+
+`reboot`
+
+
+
+## Post-Reboot
+Welcome home, welcome to Arch.
+
 
 ## References
 
