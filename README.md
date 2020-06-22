@@ -11,3 +11,4 @@ There is so much _bloat_ to get to I need to make a list to remind myself.
 + pywal
 + dwm
 + st
++ cmus
