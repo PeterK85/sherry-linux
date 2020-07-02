@@ -23,4 +23,4 @@ touch ~/.config/git/credentials
 
 echo "https://$user:$pass@github.com" >> ~/.config/git/credentials
 
-git config credntial.helper store
+echo "Added files. Now go into a local git repo and run the following command: git config credntial.helper store"
