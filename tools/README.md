@@ -12,6 +12,7 @@ An example of a time-stamps-file. This file is used for splitting the album into
 0:01:07 0:05:06 satellite
 ```
 
-## TODO
+## track-pad-launch
 
-metadata-editor
+This script is for getting the trackpad to start on the Lenovo ThinkPad L490 with Arch/Manjaro. For some (insert expletive of your choosing) the only(or maybe one of a few) ThinkPad in the 400 series to have issues with Arch/Manjaro is the one I bought, i.e. the L490.
+

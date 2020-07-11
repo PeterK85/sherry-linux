@@ -12,6 +12,7 @@ My [personal writeup](https://github.com/PeterK85/sherry-linux/tree/master/arch_
 + st setup script
 + emacs customize
 + passmgr
++ 
 
 ## Look into
 + rofi
