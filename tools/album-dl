@@ -1,0 +1,64 @@
+#!/bin/bash
+
+# Make sure at least a url is inputted
+if [ "$#" -lt 1 ]; then
+    echo "This script is used with the url of the album to download and optionally a file containing time stamps(HH:MM:SS - HH:MM:SS title)"
+    exit
+fi
+
+if [[ $1 != https* ]]; then
+    echo "The url must contain https for the script to work properly"
+    exit
+fi
+
+# Get the trailing youtube garbage i.e. the S_A2yvxNY_M
+# https://www.youtube.com/watch?v=S_A2yvxNY_M
+yt_garbage=$(echo $1 | cut -d'=' -f 2-)
+
+# Download the video and save it as mp3
+youtube-dl --add-metadata --audio-format mp3 -i -x -f bestaudio/best $1
+
+if [ "$?" -ne 0 ]; then
+    echo "Error with youtube-dl downloading -- try again and/or check connection"
+    exit
+fi
+
+# Rename the file to not include the yt garbage
+#TODO: Change this to just find the working mp3, f's up if are any other mp3's in the dir
+org_file_name=$(ls | grep *.mp3) 
+new_file_name=$(echo ${org_file_name/-$yt_garbage/})
+
+# lower case all the characters
+new_file_name=$(echo "$new_file_name" | tr '[:upper:]' '[:lower:]')
+
+# replace all spaces and - with _
+new_file_name=$(echo $new_file_name | tr '/ -' _)
+
+
+# Check if there is a second arg to split the file
+if [ "$#" -eq 3 ]; then
+    first_time=$(awk '{print $1}' FS=' ' $2)
+    sec_time=$(awk '{print $2}' FS=' ' $2)
+    track_list=$(awk '{print $3}' FS=' ' $2)
+    first_time=($first_time)
+    sec_time=($sec_time)
+    track_list=($track_list)
+    # ss is start and -t is the duration
+    # ffmpeg -i file_name -ss H:MM:SS -t H:MM:SS out_name -hide_banner > /dev/null 2>&1
+    for ((i=0;i<${#first_time[@]};++i)); do
+        ffmpeg -i "$org_file_name" -ss "${first_time[i]}" -to "${sec_time[i]}" "${track_list[i]}".temp.mp3
+        ffmpeg -i "${track_list[i]}".temp.mp3 -metadata title=""${track_list[i]}"" -metadata artist="$3" -metadata description="" -metadata comment="" -metadata track="$i"  "${track_list[i]}".mp3
+    done
+    rm "$org_file_name"
+    rm *.temp.mp3
+else
+    # else just rename the file and set the meta data
+    echo "before mv"
+    echo $org_file_name
+    echo $new_file_name
+    mv "$org_file_name" "$new_file_name"
+    echo "after mv"
+fi
+
+exit
+
