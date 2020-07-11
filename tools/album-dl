@@ -53,11 +53,7 @@ if [ "$#" -eq 3 ]; then
     rm *.temp.mp3
 else
     # else just rename the file and set the meta data
-    echo "before mv"
-    echo $org_file_name
-    echo $new_file_name
     mv "$org_file_name" "$new_file_name"
-    echo "after mv"
 fi
 
 exit

@@ -12,3 +12,6 @@ An example of a time-stamps-file. This file is used for splitting the album into
 0:01:07 0:05:06 satellite
 ```
 
+## TODO
+
+metadata-editor
