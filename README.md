@@ -5,9 +5,18 @@ A customized linux distro. (Or just the config files for packages/instructions f
 My [personal writeup](https://github.com/PeterK85/sherry-linux/tree/master/arch_install) on installing arch for my personal machines. 
 
 ## TODO
-There is so much _bloat_ to get to I need to make a list to remind myself.
++ Auto setup script
++ dwm rice setup
++ dwm setup script
++ st rice setup
++ st setup script
++ emacs customize
++ passmgr
+
+## Look into
 + rofi
-+ neovim
++ neovim/custom emacs 
 + pywal
 + dwm
 + st
++ cmus

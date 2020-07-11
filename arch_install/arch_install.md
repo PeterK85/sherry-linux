@@ -140,16 +140,6 @@ cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
 grub-mkconfig -o /boot/grub/grub.cfg
 ```
 
-Swap File
-```
-fallocate -l 2G /swapfile
-chmod 600 /swapfile
-mkswap /swapfile
-cp /etc/fstab /etc/fstab.bak
-echo '/swapfile none swap sw 0 0' | tee -a /etc/fstab
-cat /etc/fstab
-```
-
 ## Final Optional CPU/Graphics packages
 CPU codes for intel `pacman -S intel-ucode`, if you are a loser and use amd just replace intel with amd. Install Xorg if plan on having an GUI elements `pacman -S xorg-server`. If on a laptop that doesn't have a fancy GPU use `pacman -S mesa`. If on a desktop or laptop that has Nvidia GPU install: `pacman -S nvidia nvidia-utils`
 
