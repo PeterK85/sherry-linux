@@ -10,14 +10,13 @@ My [personal writeup](https://github.com/PeterK85/sherry-linux/tree/master/arch_
 + dwm setup script
 + st rice setup
 + st setup script
-+ emacs customize
++ vim customize
 + passmgr
-+ 
 
 ## Look into
 + rofi
-+ neovim/custom emacs 
-+ pywal
++ neovim
++ pywal(Maybe not anymore))
 + dwm
 + st
 + cmus
