@@ -22,7 +22,7 @@ fi
 # Welcome msg
 dialog --title "Sherry Arch" --msgbox "This is a setup script for installing  Peter's personal arch install somewhat inspired by Luke Smith's LARBs, but mostly setup to replicated his old i3-gaps setup with a Nord theme." 10 85
 
-dialog --title "Sherry Arch" --msgbox "This should take a few minutes to run and install everything. The script will setup dwm, st, the theme, vim, some qol tools and some extranious packages like Dwarf Fortress and RuneLite to play OSRS." 10 85
+dialog --title "Sherry Arch" --msgbox "This should take a few minutes to run and install everything. The script will setup dwm, st, the theme, vim, some qol tools and some extranious packages like Dwarf Fortress, Runelite and Stud.io." 10 85
 
 dialog --title "Ready or Not?" --yesno "Ready to start?" 6 25
 
@@ -32,6 +32,49 @@ if [ $? -eq 0 ]; then
         dialog --title "Ready..set..go." --msgbox "From here on out there will be assorted output on the screen of things installing. Press enter to begin install." 10 85
     fi
 fi
+
+clear
+
+#TODO -- this is a temp/test block
+# These are the first few packages that are needed for getting a basic graphical env.
+echo "Getting packages for suckless software..."
+packages=("xorg-server" \
+          "libx11" \
+          "libxft" \
+          "libxinerama" \
+          "xorg-xinit")
+
+for pack in ${packages[*]}
+do
+    pacman -S "$pack" --noconfirm
+done
+
+# check if .config dir exists -- if not create it
+if [ ! -d $HOME/.config ]; then
+    mkdir .config
+fi
+
+# TODO - This block will eventually be replaced with custom dot files
+# create dir for dmenu and then cd and git pull and make
+#TODO maybe change to rofi(look into alts to dmenu)
+echo "Setting up dmenu..."
+mkdir "$HOME/.config/demnu" && cd "$HOME/.config/dmenu"
+git clone https://git.suckless.org/dmenu
+make clean install
+
+echo "Setting up st..."
+mkdir "$HOME/.config/st" && cd "$HOME/.config/st"
+#TODO Replace with custom config file
+git clone https://git.suckless.org/st
+make clean install
+
+echo "Setting up dwm..."
+#TODO Replace with custom config file
+mkdir "$HOME/.config/dwm" && cd "$HOME/.config/dwm"
+git clone https://git.suckless.org/dwm
+make clean install
+
+#TODO -- end test/temp block
 
 
 clear
