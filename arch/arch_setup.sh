@@ -1,21 +1,16 @@
 #!/bin/bash
+# NOTE: On my machines I have it so the password isn't needed to run sudo commands
 
 #TODO: Set up args for script 
 
 # Used for installing Peter's "sherry-linux" def. NOT inspired by Luke Smith's setup script(LARBS). That was a joke, it is inspired by LARBS.
-
-# Check if running as root - is supposed to be run inside the user that is being set up
-if [ "$EUID" -ne 0 ]; then
-    echo "Please run with sudo in the user you want to set it up for."
-    exit
-fi
 
 # Check if dialog is installed.
 pacman -Qi dialog > /dev/null 2>&1
 if [ $? -ne 0 ]; then
     echo "...dialog is not installed..."
     echo "...installing dialog..."
-    pacman -S dialog --noconfirm
+    sudo pacman -S dialog --noconfirm
     exit
 fi
 
@@ -46,12 +41,12 @@ packages=("xorg-server" \
 
 for pack in ${packages[*]}
 do
-    pacman -S "$pack" --noconfirm
+    sudo pacman -S "$pack" --noconfirm
 done
 
 # check if .config dir exists -- if not create it
 if [ ! -d $HOME/.config ]; then
-    mkdir .config
+    mkdir $HOME/.config
 fi
 
 # TODO - This block will eventually be replaced with custom dot files
@@ -60,22 +55,31 @@ fi
 echo "Setting up dmenu..."
 mkdir "$HOME/.config/demnu" && cd "$HOME/.config/dmenu"
 git clone https://git.suckless.org/dmenu
-make clean install
+cd dmenu
+sudo make clean install
 
 echo "Setting up st..."
 mkdir "$HOME/.config/st" && cd "$HOME/.config/st"
 #TODO Replace with custom config file
 git clone https://git.suckless.org/st
+cd st
 make clean install
 
 echo "Setting up dwm..."
 #TODO Replace with custom config file
 mkdir "$HOME/.config/dwm" && cd "$HOME/.config/dwm"
 git clone https://git.suckless.org/dwm
+cd dwm
 make clean install
+
+touch $HOME/.xinit
+echo "exec dwm" >> $HOME/.xinit
 
 #TODO -- end test/temp block
 
 
 clear
+
+echo "Ready to rock and roll"
+echo "Start with startx"
 
