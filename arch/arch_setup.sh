@@ -11,6 +11,13 @@ if [ $? -ne 0 ]; then
     echo "...dialog is not installed..."
     echo "...installing dialog..."
     sudo pacman -S dialog --noconfirm
+fi
+
+curr_dir=$(pwd)
+desired_dir=$HOME/sherry-linux/arch
+
+if [[ $curr_dir != $desired_dir ]]; then
+    echo "Please put sherry-linux in the home dir(/home/user/)"
     exit
 fi
 
@@ -52,24 +59,27 @@ fi
 
 # TODO - This block will eventually be replaced with custom dot files
 # create dir for dmenu and then cd and git pull and make
-#TODO maybe change to rofi(look into alts to dmenu)
+# TODO maybe change to rofi(look into alts to dmenu)
 echo "Setting up dmenu..."
 cd "$HOME/.config"
-git clone https://git.suckless.org/dmenu
+# git clone https://git.suckless.org/dmenu
+cp "$HOME/sherry-liunx/dot_files/dmenu" "$HOME/.config/"
 cd dmenu
 sudo make clean install
 
 echo "Setting up st..."
 cd "$HOME/.config/"
 #TODO Replace with custom config file
-git clone https://git.suckless.org/st
+# git clone https://git.suckless.org/st
+cp "$HOME/sherry-linux/dot_files/st" "$HOME/.config/"
 cd st
 sudo make clean install
 
 echo "Setting up dwm..."
 #TODO Replace with custom config file
 cd "$HOME/.config/"
-git clone https://git.suckless.org/dwm
+# git clone https://git.suckless.org/dwm
+cp "$HOME/sherry-linux/dot_files/st" "$HOME/.config/"
 cd dwm
 sudo make clean install
 
