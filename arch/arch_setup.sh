@@ -37,7 +37,8 @@ packages=("xorg-server" \
           "libx11" \
           "libxft" \
           "libxinerama" \
-          "xorg-xinit")
+          "xorg-xinit" \
+          "ttf-jetbrains-mono")
 
 for pack in ${packages[*]}
 do
@@ -53,27 +54,27 @@ fi
 # create dir for dmenu and then cd and git pull and make
 #TODO maybe change to rofi(look into alts to dmenu)
 echo "Setting up dmenu..."
-mkdir "$HOME/.config/demnu" && cd "$HOME/.config/dmenu"
+cd "$HOME/.config"
 git clone https://git.suckless.org/dmenu
 cd dmenu
 sudo make clean install
 
 echo "Setting up st..."
-mkdir "$HOME/.config/st" && cd "$HOME/.config/st"
+cd "$HOME/.config/"
 #TODO Replace with custom config file
 git clone https://git.suckless.org/st
 cd st
-make clean install
+sudo make clean install
 
 echo "Setting up dwm..."
 #TODO Replace with custom config file
-mkdir "$HOME/.config/dwm" && cd "$HOME/.config/dwm"
+cd "$HOME/.config/"
 git clone https://git.suckless.org/dwm
 cd dwm
-make clean install
+sudo make clean install
 
-touch $HOME/.xinit
-echo "exec dwm" >> $HOME/.xinit
+touch $HOME/.xinitrc
+echo "exec dwm" >> $HOME/.xinitrc
 
 #TODO -- end test/temp block
 
