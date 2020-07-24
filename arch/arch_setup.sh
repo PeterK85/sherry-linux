@@ -64,7 +64,7 @@ fi
 echo "Setting up dmenu..."
 cd "$HOME/.config"
 # git clone https://git.suckless.org/dmenu
-cp "$HOME/sherry-liunx/dot_files/dmenu" "$HOME/.config/"
+cp -r "$HOME/sherry-linux/dot_files/dmenu" "$HOME/.config/"
 cd dmenu
 sudo make clean install
 
@@ -72,7 +72,7 @@ echo "Setting up st..."
 cd "$HOME/.config/"
 #TODO Replace with custom config file
 # git clone https://git.suckless.org/st
-cp "$HOME/sherry-linux/dot_files/st" "$HOME/.config/"
+cp -r "$HOME/sherry-linux/dot_files/st" "$HOME/.config/"
 cd st
 sudo make clean install
 
@@ -80,7 +80,7 @@ echo "Setting up dwm..."
 #TODO Replace with custom config file
 cd "$HOME/.config/"
 # git clone https://git.suckless.org/dwm
-cp "$HOME/sherry-linux/dot_files/st" "$HOME/.config/"
+cp -r "$HOME/sherry-linux/dot_files/dwm" "$HOME/.config/"
 cd dwm
 sudo make clean install
 
