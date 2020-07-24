@@ -45,7 +45,8 @@ packages=("xorg-server" \
           "libxft" \
           "libxinerama" \
           "xorg-xinit" \
-          "ttf-jetbrains-mono")
+          "ttf-jetbrains-mono"\
+          "unclutter")
 
 for pack in ${packages[*]}
 do
@@ -84,6 +85,7 @@ cd dwm
 sudo make clean install
 
 touch $HOME/.xinitrc
+echo "unclutter &" >> $HOME/.xinitrc
 echo "exec dwm" >> $HOME/.xinitrc
 
 #TODO -- end test/temp block
