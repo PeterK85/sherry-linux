@@ -90,6 +90,18 @@ echo "exec dwm" >> $HOME/.xinitrc
 
 #TODO -- end test/temp block
 
+echo "Setting local time to Phoenix"
+sudo cp /usr/share/zoneinfo/America/Phoenix /etc/localtime
+
+echo "Installing audio libs to listen to black metal"
+
+audio_packages=("pulseaudio-alsa" "alsa-utils")
+
+for apack in ${audio_packages[*]}
+do
+    sudo pacman -S "$apack" --noconfirm
+done
+
 
 clear
 
