@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# Randomly sets the wallpaper on start up
+wallpaper_dir="/home/peter/media/pictures/wallpapers"
+
+pictures=($(ls $wallpaper_dir))
+
+size=${#pictures[@]}
+
+index=$(($RANDOM%$size))
+
+echo ${pictures[$index]}
+
+xwallpaper --stretch $wallpaper_dir/${pictures[$index]}

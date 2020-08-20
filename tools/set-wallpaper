@@ -1,0 +1,21 @@
+#!/bin/bash
+
+wallpaper_dir=~/media/pictures/wallpapers
+
+if [ ! -f $wallpaper_dir/$1 ]; then
+    echo "[Error]: $1 does not exists"
+    echo "Wallpaper not updated."
+    exit
+fi
+
+# Delete the old wallpaper start script
+if [ -f $wallpaper_dir/current_wall.sh ]; then
+    echo "Removing old wallpaper script."
+    rm ~/media/pictures/wallpapers/current_wall.sh
+fi
+
+echo "#!/bin/bash" >> $wallpaper_dir/current_wall.sh
+echo "xwallpaper --stretch $wallpaper_dir/$1" >> $wallpaper_dir/current_wall.sh
+chmod +x $wallpaper_dir/current_wall.sh
+exit
+

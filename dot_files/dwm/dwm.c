@@ -1622,6 +1622,7 @@ incrivgaps(const Arg *arg)
 	);
 }
 
+
 void
 setlayout(const Arg *arg)
 {

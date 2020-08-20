@@ -1,3 +1,0 @@
-#tyr
-
-nord theme
