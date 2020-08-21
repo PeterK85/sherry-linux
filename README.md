@@ -2,10 +2,15 @@
 A customized linux distro. (Or just the config files for packages/instructions for installing things.)
 
 ## Arch Install
-My [personal writeup](https://github.com/PeterK85/sherry-linux/tree/master/arch_install) on installing arch for my personal machines. 
+My [personal writeup](https://github.com/PeterK85/sherry-linux/blob/master/arch/arch_install.md) on installing arch for my personal machines. 
 
 ## TODO
++ Update/Compile Scripts
+    + Compile certain .h files depending on machine
++ xcompmgr
 + Auto setup script
+    + xcompmgr
+    + bash scripts
 + dwm rice setup
 + dwm setup script
 + st rice setup
@@ -16,7 +21,6 @@ My [personal writeup](https://github.com/PeterK85/sherry-linux/tree/master/arch_
 ## Look into
 + rofi
 + neovim
-+ pywal(Maybe not anymore))
 + dwm
 + st
 + cmus
