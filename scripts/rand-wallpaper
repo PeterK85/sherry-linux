@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [ ! -d "$HOME/media/pictures/wallpapers" ]; then
+    echo "No Wallpapers directory"
+    echo "Create directory at $HOME/media/pictures/wallpapers."
+    exit 1
+fi
+
+# Randomly sets the wallpaper on start up
+wallpaper_dir="$HOME/media/pictures/wallpapers"
+
+pictures=($(ls $wallpaper_dir))
+
+size=${#pictures[@]}
+
+index=$(($RANDOM%$size))
+
+echo "New wallpaper: ${pictures[$index]}"
+
+xwallpaper --stretch $wallpaper_dir/${pictures[$index]}
+exit 0

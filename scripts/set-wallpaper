@@ -5,7 +5,7 @@ wallpaper_dir=~/media/pictures/wallpapers
 if [ ! -f $wallpaper_dir/$1 ]; then
     echo "[Error]: $1 does not exists"
     echo "Wallpaper not updated."
-    exit
+    exit 1
 fi
 
 # Delete the old wallpaper start script
