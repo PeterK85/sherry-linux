@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# copy-wallpapers
+# This script moves all jpeg, jpg, png files from the current directory or a passed in
+# directory to ~/media/pictures/wallpapers
+
+src_dir=$(pwd)
+dest_dir=$HOME/media/pictures/wallpapers
+
+if [ $# -ge 1 ]; then 
+    if [ ! -d $1 ]; then
+        echo "$1 doesn't exist"
+        exit 1
+    fi
+    src_dir=$1
+fi
+
+if [ ! -d $dest_dir ]; then
+    mkdir $dest_dir
+fi
+
+echo "Copying all jpeg, jpg, png from $src_dir to $dest_dir"
+
+files=$(ls $src_dir | grep '.*.jpeg\|.*.jpg\|.*.png')
+
+for file in ${files[*]}
+do
+    echo "Copying: $file"
+    cp $src_dir/$file $dest_dir/$file
+done
+
+exit 0
