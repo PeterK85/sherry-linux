@@ -1,0 +1,167 @@
+#!/bin/bash
+
+# This script is used to download music from yt using yt-dl
+# There are few options that are available with this script
+# There is the option to download an album that is one video
+# and split it into individual tracks with a file of song names
+# Download an individual song with the option to give it a new name
+# Download a playlist and rename the items with a file of song names
+# The folder flag is required for playlist and album options
+
+RED='\033[0;31m'
+NC='\033[0m'
+
+function usage {
+    echo ""
+    echo "Usage: -s A single song"
+    echo "       -s <link to yt vid>"
+    echo ""
+    echo "       -p A playlist; pair with -f "
+    echo "       -p <link to yt playlist> [-f]"
+    echo ""
+    echo "       -a A single video containing an entire album"
+    echo "       -a <link to yt vid> [-f -t]"
+    echo ""
+    echo "       -f The name of a new folder that the video(s) will be save in"
+    echo "       -f name_of_dir"
+    echo ""
+    echo "       -t A text file containing the tracks and the times in the video"
+    echo "          Used for splitting up one video"
+    echo "       -t file.ext"
+    echo ""
+    echo "       -h Shows this help message."
+    echo ""
+}
+
+function single_song {
+    echo "Downloading: $1"
+    echo ""
+    youtube-dl -f 140 $1
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}There was an error with the download.${NC}"
+        exit
+    fi
+    echo "Finished the download."
+    echo ""
+}
+
+function playlist {
+    echo "Downloading into the directory $2"
+    echo ""
+    mkdir $2
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}There was an error with creating the dirctory.${NC}"
+        exit
+    fi
+    cd $2
+    youtube-dl -f 140 $1
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}There was an error with the download.${NC}"
+        exit
+    fi
+    echo "Finished downloading playlist."
+    echo ""
+}
+
+function album {
+    echo "Downloading into $2"
+    echo ""
+    if [ $? -ne 0 ]; then
+        echo -e "${RED}There was an error with the download.${NC}"
+        exit
+    fi
+
+    mkdir $2
+    cd $2
+    
+    yt_garbage=$(echo $1 | cut -d'=' -f 2-)
+
+    # Download the video and save it as mp3
+    youtube-dl --add-metadata --audio-format mp3 -i -x -f bestaudio/best $1
+
+    if [ "$?" -ne 0 ]; then
+        echo "Error with youtube-dl downloading -- try again and/or check connection"
+        exit
+    fi
+
+    # Rename the file to not include the yt garbage
+    #TODO: Change this to just find the working mp3, f's up if are any other mp3's in the dir
+    org_file_name=$(ls | grep *.mp3) 
+    new_file_name=$(echo ${org_file_name/-$yt_garbage/})
+
+    # lower case all the characters
+    new_file_name=$(echo "$new_file_name" | tr '[:upper:]' '[:lower:]')
+
+    # replace all spaces and - with _
+    new_file_name=$(echo $new_file_name | tr '/ -' _)
+
+
+    # Check if there is a second arg to split the file
+    if [ "$#" -eq 3 ]; then
+        first_time=$(awk '{print $1}' FS=' ' $2)
+        sec_time=$(awk '{print $2}' FS=' ' $2)
+        track_list=$(awk '{print $3}' FS=' ' $2)
+        first_time=($first_time)
+        sec_time=($sec_time)
+        track_list=($track_list)
+        # ss is start and -t is the duration
+        # ffmpeg -i file_name -ss H:MM:SS -t H:MM:SS out_name -hide_banner > /dev/null 2>&1
+        for ((i=0;i<${#first_time[@]};++i)); do
+            ffmpeg -i "$org_file_name" -ss "${first_time[i]}" -to "${sec_time[i]}" "${track_list[i]}".temp.mp3
+            ffmpeg -i "${track_list[i]}".temp.mp3 -metadata title=""${track_list[i]}"" -metadata artist="$3" -metadata description="" -metadata comment="" -metadata track="$i"  "${track_list[i]}".mp3
+        done
+        rm "$org_file_name"
+        rm *.temp.mp3
+    else
+        # else just rename the file and set the meta data
+        mv "$org_file_name" "$new_file_name"
+    fi
+
+    exit
+}
+
+while getopts "s:p:a:f:t:h" arg; do
+    case $arg in
+        s) single_song_link=${OPTARG};;
+        p) playlist_link=${OPTARG};;
+        a) album_link=${OPTARG};;
+        f) folder_name=${OPTARG};;
+        t) time_file=${OPTARG};;
+        h)
+            usage
+            exit
+        ;;
+#        h) USAGE=true;;
+#        ?)
+#            echo "Invalid option -${OPTARG}."
+#            echo 
+#            usage
+#            exit
+#        ;;
+    esac
+done
+
+empty_str=""
+
+
+#echo -e "\n[$single_song_link] [$playlist_link] [$album_link] [$folder_name] [$time_file]\n"
+
+echo ""
+
+if [[ "$single_song_link" != "$empty_str" ]]; then
+    single_song $single_song_link
+    exit
+fi
+
+if [[ "$playlist_link" != "$empty_str" && "$folder_name" != "$empty_str" ]]; then
+    playlist $playlist_link $folder_name
+    exit
+fi
+
+if [[ "$album_link" != "$empty_str" && "$folder_name" != "$empty_str" && "$time_file" != "$empty_str" ]]; then
+    album $album_link $folder_name $time_file
+    exit
+fi
+
+echo -e "${RED}An error occured with one or more of the inputs${NC}"
+exit 85
